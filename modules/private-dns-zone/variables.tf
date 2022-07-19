@@ -14,11 +14,17 @@ variable "resource_group_name" {
 }
 
 variable "private_dns_zone_name" {
-  description = "Name of the private DNS zone name"
+  description = "Private DNS Zone name"
   type        = string
 }
 
 variable "private_dns_zone_vnet_ids" {
-  description = "IDs of the VNets to link to the private DNS zone"
+  description = "IDs of the VNets to link to the Private DNS Zone"
   type        = list(string)
+}
+
+variable "is_not_private_link_service" {
+  description = "Boolean to determine if this module is used for Private Link Service or not"
+  type        = bool
+  default     = true
 }

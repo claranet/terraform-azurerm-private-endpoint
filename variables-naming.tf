@@ -20,18 +20,18 @@ variable "use_caf_naming" {
 # Custom naming override
 variable "custom_private_endpoint_name" {
   type        = string
-  description = "Custom private endpoint name, generated if not set"
+  description = "Custom Private Endpoint name, generated if not set."
   default     = ""
 }
 
 variable "custom_private_dns_zone_group_name" {
   type        = string
-  description = "Custom private DNS zone group name, generated if not set"
+  description = "Custom Private DNS Zone Group name, generated if not set."
   default     = ""
 }
 
 variable "custom_private_service_connection_name" {
   type        = string
-  description = "Custom private service connection name, generated if not set"
+  description = "Custom Private Service Connection name, generated if not set."
   default     = ""
 }

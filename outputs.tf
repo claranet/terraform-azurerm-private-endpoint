@@ -3,35 +3,25 @@
 #
 
 output "private_endpoint_id" {
-  description = "ID of the private endpoint"
+  description = "Private Endpoint ID"
   value       = azurerm_private_endpoint.private_endpoint.id
 }
 
 output "private_endpoint_ip_address" {
-  description = "The private IP address associated with the private endpoint"
+  description = "IP address associated with the Private Endpoint"
   value       = azurerm_private_endpoint.private_endpoint.private_service_connection[0].private_ip_address
-}
-
-output "private_endpoint_fqdn" {
-  description = "The fully qualified domain name of the private endpoint"
-  value       = try(azurerm_private_endpoint.private_endpoint.private_dns_zone_configs[0].record_sets[0].fqdn, null)
 }
 
 #
 # Private DNS zone
 #
 
-output "private_dns_zone_id" {
-  description = "ID of the private DNS zone"
-  value       = try(module.private_dns_zone["private_dns_zone"].private_dns_zone_id, null)
+output "private_dns_zone_ids" {
+  description = "Maps of Private DNS Zone IDs created as part of this module. Only available if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service."
+  value       = { for config in azurerm_private_endpoint.private_endpoint.private_dns_zone_configs : config.name => config.private_dns_zone_id }
 }
 
-output "private_dns_zone_name" {
-  description = "Name of the private DNS zone"
-  value       = try(module.private_dns_zone["private_dns_zone"].private_dns_zone_name, null)
-}
-
-output "private_dns_zone_vnet_links_ids" {
-  description = "Map of VNets links IDs"
-  value       = try(module.private_dns_zone["private_dns_zone"].private_dns_zone_vnet_links_ids, null)
+output "private_dns_zone_record_sets" {
+  description = "Maps of Private DNS Zone record sets created as part of this module. Only available if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service."
+  value       = { for config in azurerm_private_endpoint.private_endpoint.private_dns_zone_configs : config.name => config.record_sets }
 }
