@@ -6,20 +6,11 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   subnet_id = var.subnet_id
 
   dynamic "private_dns_zone_group" {
-    for_each = var.use_existing_private_dns_zones && local.is_not_private_link_service ? ["use_existing_private_dns_zones"] : []
+    for_each = local.is_not_private_link_service ? ["private_dns_zone_group"] : []
 
     content {
       name                 = local.private_dns_zone_group_name
-      private_dns_zone_ids = var.private_dns_zone_ids
-    }
-  }
-
-  dynamic "private_dns_zone_group" {
-    for_each = !var.use_existing_private_dns_zones && local.is_not_private_link_service ? ["create_private_dns_zones"] : []
-
-    content {
-      name                 = local.private_dns_zone_group_name
-      private_dns_zone_ids = [for zone in module.private_dns_zones : zone.private_dns_zone_id]
+      private_dns_zone_ids = var.use_existing_private_dns_zones ? var.private_dns_zone_ids : [for zone in module.private_dns_zones : zone.private_dns_zone_id]
     }
   }
 
