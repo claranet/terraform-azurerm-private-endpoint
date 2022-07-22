@@ -10,5 +10,5 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
   }
 
   # Only 15 tags are supported on this resource
-  tags = local.fifteen_tags
+  tags = local.curtailed_tags
 }

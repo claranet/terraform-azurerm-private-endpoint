@@ -4,9 +4,9 @@ locals {
     stack = var.stack
   } : {}
 
-  combined_tags = merge(local.default_tags, var.extra_tags)
+  merged_tags = merge(local.default_tags, var.extra_tags)
 
-  fifteen_tags = {
-    for key in slice(keys(local.combined_tags), 0, length(local.combined_tags) >= 15 ? 15 : length(local.combined_tags)) : key => lookup(local.combined_tags, key)
+  curtailed_tags = {
+    for key in slice(keys(local.merged_tags), 0, length(local.merged_tags) >= 15 ? 15 : length(local.merged_tags)) : key => lookup(local.merged_tags, key)
   }
 }

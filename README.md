@@ -278,3 +278,7 @@ module "example_alias_private_endpoint" {
 | private\_endpoint\_id | Private Endpoint ID |
 | private\_endpoint\_ip\_address | IP address associated with the Private Endpoint |
 <!-- END_TF_DOCS -->
+
+## Related documentation
+
+Microsoft Azure documentation: [docs.microsoft.com/en-us/azure/private-link/](https://docs.microsoft.com/en-us/azure/private-link/)

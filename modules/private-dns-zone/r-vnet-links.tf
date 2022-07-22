@@ -15,5 +15,5 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_vnet_
   }
 
   # Only 15 tags are supported on this resource
-  tags = local.fifteen_tags
+  tags = local.curtailed_tags
 }
