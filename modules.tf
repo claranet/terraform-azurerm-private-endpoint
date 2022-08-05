@@ -1,7 +1,7 @@
 module "private_dns_zones" {
   source = "./modules/private-dns-zone"
 
-  for_each = var.use_existing_private_dns_zones ? [] : toset(var.private_dns_zone_names)
+  for_each = toset(var.use_existing_private_dns_zones ? [] : var.private_dns_zone_names)
 
   environment         = var.environment
   stack               = var.stack
