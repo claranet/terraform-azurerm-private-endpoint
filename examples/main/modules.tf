@@ -109,7 +109,7 @@ module "key_vault" {
 
 module "lb" {
   source  = "claranet/lb/azurerm"
-  version = "6.0.1"
+  version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
