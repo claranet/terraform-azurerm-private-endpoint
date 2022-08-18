@@ -28,3 +28,9 @@ variable "is_not_private_link_service" {
   type        = bool
   default     = true
 }
+
+variable "registration_enabled" {
+  description = "Is auto-registration of VM records in the VNet in the Private DNS zone enabled? Defaults to `false`."
+  type        = bool
+  default     = false
+}
