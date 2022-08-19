@@ -1,4 +1,4 @@
-# Unreleased
+# v6.1.0 - 2022-08-19
 
 Added
   * AZ-827: Add `registration_enabled` parameter to Private DNS Zone submodule
