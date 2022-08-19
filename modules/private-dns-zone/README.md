@@ -162,6 +162,7 @@ No modules.
 | private\_dns\_zone\_vnet\_ids | IDs of the VNets to link to the Private DNS Zone | `list(string)` | n/a | yes |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | stack | Project stack name | `string` | n/a | yes |
+| vm\_autoregistration\_enabled | Is auto-registration of VM records in the VNet in the Private DNS zone enabled? Defaults to `false`. | `bool` | `false` | no |
 
 ## Outputs
 
