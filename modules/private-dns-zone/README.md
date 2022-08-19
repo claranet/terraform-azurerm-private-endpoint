@@ -160,9 +160,9 @@ No modules.
 | is\_not\_private\_link\_service | Boolean to determine if this module is used for Private Link Service or not | `bool` | `true` | no |
 | private\_dns\_zone\_name | Private DNS Zone name | `string` | n/a | yes |
 | private\_dns\_zone\_vnet\_ids | IDs of the VNets to link to the Private DNS Zone | `list(string)` | n/a | yes |
-| registration\_enabled | Is auto-registration of VM records in the VNet in the Private DNS zone enabled? Defaults to `false`. | `bool` | `false` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | stack | Project stack name | `string` | n/a | yes |
+| vm\_autoregistration\_enabled | Is auto-registration of VM records in the VNet in the Private DNS zone enabled? Defaults to `false`. | `bool` | `false` | no |
 
 ## Outputs
 

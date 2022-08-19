@@ -14,7 +14,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_vnet_
     }
   }
 
-  registration_enabled = var.registration_enabled
+  registration_enabled = var.vm_autoregistration_enabled
 
   # Only 15 tags are supported on this resource
   tags = local.curtailed_tags
