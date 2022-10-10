@@ -55,9 +55,10 @@ module "subnet_01" {
 
   name_suffix          = "01"
   virtual_network_name = module.vnet_01.virtual_network_name
-
-  enforce_private_link = true
   subnet_cidr_list     = ["192.168.1.128/25"]
+
+  private_link_endpoint_enabled = true
+  private_link_service_enabled  = true
 }
 
 module "vnet_02" {
