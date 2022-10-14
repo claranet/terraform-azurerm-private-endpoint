@@ -1,4 +1,4 @@
-# Unreleased
+# v6.1.1 - 2022-10-14
 
 Changed
   * AZ-844: `enforce_private_link_endpoint_network_policies` will be removed in favour of the property `private_endpoint_network_policies_enabled` on subnet module (`v6.0+`)
