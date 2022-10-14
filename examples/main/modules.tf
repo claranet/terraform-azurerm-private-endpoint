@@ -55,9 +55,10 @@ module "subnet_01" {
 
   name_suffix          = "01"
   virtual_network_name = module.vnet_01.virtual_network_name
-
-  enforce_private_link = true
   subnet_cidr_list     = ["192.168.1.128/25"]
+
+  private_link_endpoint_enabled = true
+  private_link_service_enabled  = true
 }
 
 module "vnet_02" {
@@ -81,9 +82,10 @@ resource "azurerm_subnet" "subnet_02" {
   resource_group_name = module.rg.resource_group_name
 
   virtual_network_name = module.vnet_02.virtual_network_name
+  address_prefixes     = ["172.16.4.0/24"]
 
-  enforce_private_link_service_network_policies = true
-  address_prefixes                              = ["172.16.4.0/24"]
+  private_endpoint_network_policies_enabled     = true
+  private_link_service_network_policies_enabled = true
 }
 
 data "azurerm_client_config" "current" {}

@@ -52,9 +52,10 @@ module "subnet" {
   stack               = var.stack
 
   virtual_network_name = module.vnet.virtual_network_name
-
-  enforce_private_link = true
   subnet_cidr_list     = ["192.168.1.128/25"]
+
+  private_link_endpoint_enabled = true
+  private_link_service_enabled  = true
 }
 
 data "azurerm_client_config" "current" {}
