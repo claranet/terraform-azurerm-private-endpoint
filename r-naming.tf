@@ -1,4 +1,4 @@
-resource "azurecaf_name" "private_endpoint" {
+data "azurecaf_name" "private_endpoint" {
   name          = var.stack
   resource_type = "azurerm_private_endpoint"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
@@ -8,7 +8,7 @@ resource "azurecaf_name" "private_endpoint" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "private_dns_zone_group" {
+data "azurecaf_name" "private_dns_zone_group" {
   name          = var.stack
   resource_type = "azurerm_private_dns_zone_group"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
@@ -18,7 +18,7 @@ resource "azurecaf_name" "private_dns_zone_group" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "private_service_connection" {
+data "azurecaf_name" "private_service_connection" {
   name          = var.stack
   resource_type = "azurerm_private_service_connection"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]

@@ -226,7 +226,7 @@ module "example_alias_private_endpoint" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2 |
+| azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | ~> 3.22 |
 
 ## Modules
@@ -239,10 +239,10 @@ module "example_alias_private_endpoint" {
 
 | Name | Type |
 |------|------|
-| [azurecaf_name.private_dns_zone_group](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
-| [azurecaf_name.private_endpoint](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
-| [azurecaf_name.private_service_connection](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_private_endpoint.private_endpoint](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
+| [azurecaf_name.private_dns_zone_group](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.private_endpoint](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.private_service_connection](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
