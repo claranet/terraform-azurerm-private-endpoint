@@ -1,39 +1,35 @@
 variable "location" {
-  description = "Azure location"
+  description = "Azure location."
   type        = string
 }
 
 variable "location_short" {
-  description = "Short string for Azure location"
+  description = "Short string for Azure location."
   type        = string
 }
 
 variable "client_name" {
-  description = "Client name/account used in naming"
+  description = "Client name/account used in naming."
   type        = string
 }
 
 variable "environment" {
-  description = "Project environment"
+  description = "Project environment."
   type        = string
 }
 
 variable "stack" {
-  description = "Project stack name"
+  description = "Project stack name."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Resource group name"
+  description = "Resource group name."
   type        = string
 }
 
-#
-# Private Endpoint
-#
-
 variable "subnet_id" {
-  description = "ID of the subnet in which the Private Endpoint will be created"
+  description = "ID of the subnet in which the Private Endpoint will be created."
   type        = string
 }
 
@@ -50,7 +46,7 @@ variable "request_message" {
 }
 
 variable "target_resource" {
-  description = "Private Link Service Alias or ID of the target resource"
+  description = "Private Link Service Alias or ID of the target resource."
   type        = string
 
   validation {
@@ -65,29 +61,25 @@ variable "subresource_name" {
   default     = ""
 }
 
-#
-# Private DNS Zone
-#
-
 variable "use_existing_private_dns_zones" {
   description = "Boolean to create the Private DNS Zones corresponding to the Private Endpoint. If you wish to centralize the Private DNS Zones in another Resource Group that could belong to another subscription, set this option to `true` and use the `private-dns-zone` submodule directly."
   type        = bool
   default     = false
 }
 
-variable "private_dns_zone_ids" {
-  description = "IDs of the Private DNS Zones in which a new record will be created for the Private Endpoint. Only valid if `use_existing_private_dns_zones` is set to `true` and `target_resource` is not a Private Link Service. One of `private_dns_zone_ids` or `private_dns_zone_names` must be specified."
+variable "private_dns_zones_ids" {
+  description = "IDs of the Private DNS Zones in which a new record will be created for the Private Endpoint. Only valid if `use_existing_private_dns_zones` is set to `true` and `target_resource` is not a Private Link Service. One of `private_dns_zones_ids` or `private_dns_zones_names` must be specified."
   type        = list(string)
   default     = []
 }
 
-variable "private_dns_zone_names" {
-  description = "Names of the Private DNS Zones to create. Only valid if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service. One of `private_dns_zone_ids` or `private_dns_zone_names` must be specified."
+variable "private_dns_zones_names" {
+  description = "Names of the Private DNS Zones to create. Only valid if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service. One of `private_dns_zones_ids` or `private_dns_zones_names` must be specified."
   type        = list(string)
   default     = []
 }
 
-variable "private_dns_zone_vnet_ids" {
+variable "private_dns_zones_vnets_ids" {
   description = "IDs of the VNets to link to the Private DNS Zones. Only valid if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service."
   type        = list(string)
   default     = []

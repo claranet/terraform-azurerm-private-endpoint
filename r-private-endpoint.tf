@@ -1,7 +1,8 @@
 resource "azurerm_private_endpoint" "private_endpoint" {
-  name                = local.private_endpoint_name
+  name     = local.private_endpoint_name
+  location = var.location
+
   resource_group_name = var.resource_group_name
-  location            = var.location
 
   subnet_id = var.subnet_id
 
@@ -10,7 +11,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
 
     content {
       name                 = local.private_dns_zone_group_name
-      private_dns_zone_ids = var.use_existing_private_dns_zones ? var.private_dns_zone_ids : [for zone in module.private_dns_zones : zone.private_dns_zone_id]
+      private_dns_zone_ids = var.use_existing_private_dns_zones ? var.private_dns_zones_ids : [for zone in module.private_dns_zones : zone.private_dns_zone_id]
     }
   }
 
