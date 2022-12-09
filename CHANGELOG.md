@@ -1,4 +1,4 @@
-# Unreleased
+# v6.3.0 - 2022-12-09
 
 Changed
   * AZ-929: Change the `private_dns_zone_ids` variable to `private_dns_zones_ids`
