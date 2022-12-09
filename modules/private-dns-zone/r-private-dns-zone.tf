@@ -1,6 +1,9 @@
 resource "azurerm_private_dns_zone" "private_dns_zone" {
-  name                = var.private_dns_zone_name
+  name = var.private_dns_zone_name
+
   resource_group_name = var.resource_group_name
+
+  tags = local.curtailed_tags
 
   lifecycle {
     precondition {
@@ -8,7 +11,4 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
       error_message = "Private Link Service does not require the deployment of Private DNS Zones."
     }
   }
-
-  # Only 15 tags are supported on this resource
-  tags = local.curtailed_tags
 }
