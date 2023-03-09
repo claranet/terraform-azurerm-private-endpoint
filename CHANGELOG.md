@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1023: Fix ResourceGroup name validation
+
 # v6.3.0 - 2022-12-09
 
 Changed
