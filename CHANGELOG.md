@@ -5,6 +5,7 @@ Added
   * AZ-1090: Add the `ip_configuration` block to be able to define the private IP address (or addresses) of the Private Endpoint
 
 Changed
+  * AZ-1090: The minimum version of Terraform is now `1.3` to support optional attributes with default values
   * AZ-1090: The minimum version of the AzureRM Provider is now `3.36` to support new parameters
   * AZ-1090: Update example with new parameters
 
