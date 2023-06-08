@@ -11,6 +11,9 @@ Changed
   * AZ-1090: The minimum version of the AzureRM Provider is now `3.36` to support new parameters
   * AZ-1090: Update example with new parameters
 
+Fixed
+  * AZ-1096: Fix the regex that does not match FHIR IDs
+
 # v6.3.1 - 2023-03-10
 
 Fixed
