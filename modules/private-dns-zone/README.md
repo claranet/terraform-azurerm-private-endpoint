@@ -20,7 +20,7 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-module "region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -31,20 +31,20 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.region.location
+  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
 }
 
 module "logs" {
-  source  = "claranet/run-common/azurerm//modules/logs"
+  source  = "claranet/run/azurerm//modules/logs"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -54,10 +54,10 @@ module "vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -69,9 +69,9 @@ module "subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -90,10 +90,10 @@ module "key_vault" {
   source  = "claranet/keyvault/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -123,10 +123,10 @@ module "kv_private_endpoint" {
   source  = "claranet/private-endpoint/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name

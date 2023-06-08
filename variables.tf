@@ -49,7 +49,8 @@ EOD
     subresource_name   = optional(string)
     private_ip_address = string
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "is_manual_connection" {
