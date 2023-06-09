@@ -1,4 +1,4 @@
-# Unreleased
+# v7.0.0 - 2023-06-09
 
 Added
   * AZ-1090: Add the `custom_network_interface_name` parameter to be able to define the custom NIC name of the Private Endpoint
