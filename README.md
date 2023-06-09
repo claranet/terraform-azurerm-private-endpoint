@@ -33,7 +33,7 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-module "region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -44,7 +44,7 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.region.location
+  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
@@ -54,10 +54,10 @@ module "logs" {
   source  = "claranet/run/azurerm//modules/logs"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -67,10 +67,10 @@ module "vnet_01" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -84,9 +84,9 @@ module "subnet_01" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -105,10 +105,10 @@ module "vnet_02" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -122,9 +122,9 @@ module "subnet_02" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -134,7 +134,7 @@ module "subnet_02" {
   virtual_network_name = module.vnet_02.virtual_network_name
 
   private_link_endpoint_enabled = true
-  private_link_service_enabled  = true
+  private_link_service_enabled  = false
 
   subnet_cidr_list = ["172.16.4.0/24"]
 }
@@ -145,10 +145,10 @@ module "key_vault" {
   source  = "claranet/keyvault/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -165,10 +165,10 @@ module "lb" {
   source  = "claranet/lb/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -177,8 +177,8 @@ module "lb" {
 }
 
 resource "azurerm_private_link_service" "example" {
-  name     = "pls-${var.stack}-${var.client_name}-${module.region.location_short}-${var.environment}"
-  location = module.region.location
+  name     = format("pls-%s-%s-%s-%s", var.stack, var.client_name, module.azure_region.location_short, var.environment)
+  location = module.azure_region.location
 
   resource_group_name = module.rg.resource_group_name
 
@@ -195,17 +195,24 @@ module "kv_private_endpoint" {
   source  = "claranet/private-endpoint/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
 
   name_suffix = "kv"
 
-  subnet_id        = module.subnet_01.subnet_id
+  custom_private_endpoint_nic_name = "foo"
+
+  subnet_id = module.subnet_01.subnet_id
+  ip_configurations = [{           # The number of IP configurations depends on the target resource
+    member_name        = "default" # The `member_name` value depends on the target resource
+    private_ip_address = cidrhost(module.subnet_01.subnet_cidr_list[0], 34)
+  }]
+
   target_resource  = module.key_vault.key_vault_id
   subresource_name = "vault"
 
@@ -217,17 +224,20 @@ module "example_private_endpoint" {
   source  = "claranet/private-endpoint/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
 
   name_suffix = "example"
 
-  subnet_id       = module.subnet_02.subnet_id
+  custom_private_endpoint_nic_name = "bar"
+
+  subnet_id = module.subnet_02.subnet_id
+
   target_resource = azurerm_private_link_service.example.id
 }
 
@@ -235,10 +245,10 @@ module "example_alias_private_endpoint" {
   source  = "claranet/private-endpoint/azurerm"
   version = "x.x.x"
 
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
-  location       = module.region.location
-  location_short = module.region.location_short
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
@@ -247,7 +257,11 @@ module "example_alias_private_endpoint" {
 
   is_manual_connection = true
 
-  subnet_id       = module.subnet_02.subnet_id
+  subnet_id = module.subnet_02.subnet_id
+  ip_configurations = [{
+    private_ip_address = cidrhost(module.subnet_02.subnet_cidr_list[0], 34)
+  }]
+
   target_resource = azurerm_private_link_service.example.alias
 }
 ```
@@ -281,10 +295,12 @@ module "example_alias_private_endpoint" {
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_private\_dns\_zone\_group\_name | Custom Private DNS Zone Group name, generated if not set. | `string` | `""` | no |
 | custom\_private\_endpoint\_name | Custom Private Endpoint name, generated if not set. | `string` | `""` | no |
+| custom\_private\_endpoint\_nic\_name | Custom network interface name of the Private endpoint, generated by Azure if not set. | `string` | `null` | no |
 | custom\_private\_service\_connection\_name | Custom Private Service Connection name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
+| ip\_configurations | List of IP Configuration object. Any modification to the parameters of the IP Configuration object forces a new resource to be created.<pre>name               = Name of the IP Configuration.<br>member_name        = Member name of the IP Configuration. If it is not specified, it will use the value of `subresource_name`. Only valid if `target_resource` is not a Private Link Service.<br>subresource_name   = Subresource name of the IP Configuration. Only valid if `target_resource` is not a Private Link Service.<br>private_ip_address = Private IP address within the Subnet of the Private Endpoint.</pre> | <pre>list(object({<br>    name               = optional(string, "default")<br>    member_name        = optional(string)<br>    subresource_name   = optional(string)<br>    private_ip_address = string<br>  }))</pre> | `[]` | no |
 | is\_manual\_connection | Does the Private Endpoint require manual approval from the remote resource owner? Default to `false`. | `bool` | `false` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
