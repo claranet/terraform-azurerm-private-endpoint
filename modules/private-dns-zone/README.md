@@ -2,16 +2,25 @@
 
 This terraform creates an [Azure Private DNS Zone](https://learn.microsoft.com/en-us/azure/dns/private-dns-overview/) to be associated with an [Azure Private Endpoint](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview/).
 
+<!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
+| >= 7.x.x       | 1.3.x             | >= 3.0          |
 | >= 6.x.x       | 1.x               | >= 3.0          |
 | >= 5.x.x       | 0.15.x            | >= 2.0          |
 | >= 4.x.x       | 0.13.x / 0.14.x   | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
+
+## Contributing
+
+If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
+which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
+
+More details are available in the [CONTRIBUTING.md](../../CONTRIBUTING.md#pull-request-process) file.
 
 ## Usage
 
@@ -140,7 +149,6 @@ module "kv_private_endpoint" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
