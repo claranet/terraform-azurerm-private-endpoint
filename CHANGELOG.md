@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1191: Fix tags truncation in `private-dns-zone` submodule
+
 # v7.0.1 - 2023-07-13
 
 Fixed

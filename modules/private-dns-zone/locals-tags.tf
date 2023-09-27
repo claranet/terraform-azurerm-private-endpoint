@@ -8,7 +8,7 @@ locals {
 
   # Private DNS Zone and Private DNS Zone VNet Link can have only 15 tags maximum
   truncated_tags = {
-    for key in chunklist(keys(local.merged_tags), 14)[0] : key => lookup(local.merged_tags, key)
+    for key in try(chunklist(keys(local.merged_tags), 14)[0], []) : key => lookup(local.merged_tags, key)
   }
 
   # We keep the 14 first tags, serialize all the others in a 15th one (JSON encoded)
