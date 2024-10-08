@@ -1,3 +1,18 @@
+## 7.1.1 (2024-10-08)
+
+### Documentation
+
+* update submodule READMEs with latest template 5ba7326
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.3 2ac5d87
+* **deps:** update dependency pre-commit to v4 51f3631
+* **deps:** update dependency trivy to v0.56.0 085e5b2
+* **deps:** update dependency trivy to v0.56.1 fe292a4
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 265b113
+* prepare for new examples structure afd1a57
+
 ## 7.1.0 (2024-10-03)
 
 ### Features
