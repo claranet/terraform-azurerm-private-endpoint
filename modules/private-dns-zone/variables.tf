@@ -13,13 +13,13 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "private_dns_zone_name" {
+variable "name" {
   description = "Private DNS Zone name."
   type        = string
 }
 
-variable "private_dns_zone_vnets_ids" {
-  description = "IDs of the VNets to link to the Private DNS Zone."
+variable "virtual_network_ids" {
+  description = "IDs of the Virtual Networks to link to the Private DNS Zone."
   type        = list(string)
 }
 

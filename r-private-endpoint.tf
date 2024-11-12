@@ -1,10 +1,10 @@
-resource "azurerm_private_endpoint" "private_endpoint" {
-  name     = local.private_endpoint_name
+resource "azurerm_private_endpoint" "main" {
+  name     = local.name
   location = var.location
 
   resource_group_name = var.resource_group_name
 
-  custom_network_interface_name = var.custom_private_endpoint_nic_name
+  custom_network_interface_name = var.nic_custom_name
 
   subnet_id = var.subnet_id
 
@@ -38,4 +38,9 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
+}
+
+moved {
+  from = azurerm_private_endpoint.private_endpoint
+  to   = azurerm_private_endpoint.main
 }

@@ -1,5 +1,5 @@
-resource "azurerm_private_dns_zone" "private_dns_zone" {
-  name = var.private_dns_zone_name
+resource "azurerm_private_dns_zone" "main" {
+  name = var.name
 
   resource_group_name = var.resource_group_name
 
@@ -11,4 +11,9 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
       error_message = "Private Link Service does not require the deployment of Private DNS Zones."
     }
   }
+}
+
+moved {
+  from = azurerm_private_dns_zone.private_dns_zone
+  to   = azurerm_private_dns_zone.main
 }

@@ -33,89 +33,54 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  resource_group_name = module.rg.name
 
-  resource_group_name = module.rg.resource_group_name
-
-  vnet_cidr = ["192.168.1.0/24"]
+  cidrs = ["192.168.1.0/24"]
 }
 
 module "subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
+  location_short      = module.azure_region.location_short
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  resource_group_name = module.rg.name
 
-  resource_group_name = module.rg.resource_group_name
-
-  virtual_network_name = module.vnet.virtual_network_name
+  virtual_network_name = module.vnet.name
 
   private_link_endpoint_enabled = true
   private_link_service_enabled  = true
 
-  subnet_cidr_list = ["192.168.1.128/25"]
+  cidrs = ["192.168.1.128/25"]
 }
-
-data "azurerm_client_config" "current" {}
 
 module "key_vault" {
   source  = "claranet/keyvault/azurerm"
   version = "x.x.x"
 
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name = module.rg.resource_group_name
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  resource_group_name = module.rg.name
 
   admin_objects_ids = [data.azurerm_client_config.current.object_id]
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id,
+    module.logs.storage_account_id,
+    module.logs.id,
   ]
 }
 
@@ -123,33 +88,31 @@ module "kv_private_dns_zone" {
   source  = "claranet/private-endpoint/azurerm//modules/private-dns-zone"
   version = "x.x.x"
 
-  environment = var.environment
-  stack       = var.stack
+  environment         = var.environment
+  stack               = var.stack
+  resource_group_name = module.rg.name
 
-  resource_group_name = module.rg.resource_group_name
-
-  private_dns_zone_name      = "privatelink.vaultcore.azure.net"
-  private_dns_zone_vnets_ids = [module.vnet.virtual_network_id]
+  name                = "privatelink.vaultcore.azure.net"
+  virtual_network_ids = [module.vnet.id]
 }
 
 module "kv_private_endpoint" {
   source  = "claranet/private-endpoint/azurerm"
   version = "x.x.x"
 
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  resource_group_name = module.rg.name
 
-  resource_group_name = module.rg.resource_group_name
-
-  subnet_id        = module.subnet.subnet_id
-  target_resource  = module.key_vault.key_vault_id
+  subnet_id        = module.subnet.id
+  target_resource  = module.key_vault.id
   subresource_name = "vault"
 
   use_existing_private_dns_zones = true
-  private_dns_zones_ids          = [module.kv_private_dns_zone.private_dns_zone_id]
+  private_dns_zones_ids          = [module.kv_private_dns_zone.id]
 }
 ```
 
@@ -157,7 +120,7 @@ module "kv_private_endpoint" {
 
 | Name | Version |
 |------|---------|
-| azurerm | ~> 3.0 |
+| azurerm | ~> 4.0 |
 
 ## Modules
 
@@ -167,8 +130,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [azurerm_private_dns_zone.private_dns_zone](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone) | resource |
-| [azurerm_private_dns_zone_virtual_network_link.private_dns_zone_vnet_links](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone_virtual_network_link) | resource |
+| [azurerm_private_dns_zone.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone) | resource |
+| [azurerm_private_dns_zone_virtual_network_link.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone_virtual_network_link) | resource |
 
 ## Inputs
 
@@ -178,17 +141,19 @@ No modules.
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
 | is\_not\_private\_link\_service | Boolean to determine if this module is used for Private Link Service or not. | `bool` | `true` | no |
-| private\_dns\_zone\_name | Private DNS Zone name. | `string` | n/a | yes |
-| private\_dns\_zone\_vnets\_ids | IDs of the VNets to link to the Private DNS Zone. | `list(string)` | n/a | yes |
+| name | Private DNS Zone name. | `string` | n/a | yes |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | stack | Project stack name. | `string` | n/a | yes |
+| virtual\_network\_ids | IDs of the Virtual Networks to link to the Private DNS Zone. | `list(string)` | n/a | yes |
 | vm\_autoregistration\_enabled | Is auto-registration of VM records in the VNet in the Private DNS zone enabled? Defaults to `false`. | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| private\_dns\_zone\_id | Private DNS Zone ID. |
-| private\_dns\_zone\_name | Private DNS Zone name. |
-| private\_dns\_zone\_vnet\_links\_ids | VNet links IDs. |
+| id | Private DNS Zone ID. |
+| name | Private DNS Zone name. |
+| resource | Private DNS Zone resource object. |
+| resource\_virtual\_network\_links | Private DNS Zone VNet link resource object. |
+| vnet\_links\_ids | VNet links IDs. |
 <!-- END_TF_DOCS -->
