@@ -3,13 +3,12 @@ module "private_dns_zones" {
 
   for_each = toset(var.use_existing_private_dns_zones ? [] : var.private_dns_zones_names)
 
-  environment = var.environment
-  stack       = var.stack
-
+  environment         = var.environment
+  stack               = var.stack
   resource_group_name = var.resource_group_name
 
-  private_dns_zone_name      = each.key
-  private_dns_zone_vnets_ids = var.private_dns_zones_vnets_ids
+  name                = each.key
+  virtual_network_ids = var.private_dns_zones_vnets_ids
 
   is_not_private_link_service = local.is_not_private_link_service
 
