@@ -1,3 +1,6 @@
+# Unreleased
+* Move partial terragrunt block into terraform.tf
+
 ## 8.0.0 (2024-11-26)
 
 ### ⚠ BREAKING CHANGES
