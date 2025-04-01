@@ -23,7 +23,7 @@ resource "azurerm_private_endpoint" "main" {
     content {
       name = local.private_dns_zone_group_name
       private_dns_zone_ids = var.use_existing_private_dns_zones ? var.private_dns_zones_ids : [
-        for zone in module.private_dns_zones : zone.private_dns_zone_id
+        for zone in module.private_dns_zones : zone.id
       ]
     }
   }
