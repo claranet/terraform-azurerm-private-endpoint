@@ -1,3 +1,31 @@
+## 8.0.1 (2025-04-01)
+
+### Bug Fixes
+
+* use the right `id` output from local private DNS zone submodule 6fd9a71
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.8 131ff28
+* **deps:** update dependency opentofu to v1.9.0 7de2217
+* **deps:** update dependency pre-commit to v4.1.0 b9090d9
+* **deps:** update dependency pre-commit to v4.2.0 29bc2bb
+* **deps:** update dependency tflint to v0.55.0 49c1a4c
+* **deps:** update dependency trivy to v0.58.1 6ee6b78
+* **deps:** update dependency trivy to v0.58.2 8761b16
+* **deps:** update dependency trivy to v0.59.1 9e13369
+* **deps:** update dependency trivy to v0.60.0 29b4fe2
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 9c15d23
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 26faae1
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 01a12c9
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 7015d0d
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 b71a872
+* **deps:** update tools 4eaabab
+* **deps:** update tools 506e373
+* **deps:** update tools ebb6eba
+* update Github templates 82847b8
+* update tflint config for v0.55.0 8b9d229
+
 ## 8.0.0 (2024-11-26)
 
 ### ⚠ BREAKING CHANGES
