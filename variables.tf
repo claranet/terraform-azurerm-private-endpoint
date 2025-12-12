@@ -104,3 +104,9 @@ variable "private_dns_zones_vnets_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "private_dns_zones_internet_fallback_enabled" {
+  description = "Whether to enable internet fallback for the Private DNS Zones."
+  type        = bool
+  default     = false
+}

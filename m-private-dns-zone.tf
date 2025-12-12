@@ -12,6 +12,8 @@ module "private_dns_zones" {
 
   is_not_private_link_service = local.is_not_private_link_service
 
+  internet_fallback_enabled = var.private_dns_zones_internet_fallback_enabled
+
   default_tags_enabled = var.default_tags_enabled
 
   extra_tags = merge(local.default_tags, var.extra_tags)

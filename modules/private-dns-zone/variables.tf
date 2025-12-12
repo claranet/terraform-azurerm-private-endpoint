@@ -34,3 +34,9 @@ variable "vm_autoregistration_enabled" {
   type        = bool
   default     = false
 }
+
+variable "internet_fallback_enabled" {
+  description = "Whether to enable internet fallback for the Private DNS Zone."
+  type        = bool
+  default     = false
+}
