@@ -120,7 +120,7 @@ module "kv_private_endpoint" {
 
 | Name | Version |
 |------|---------|
-| azurerm | ~> 4.0 |
+| azurerm | ~> 4.36 |
 
 ## Modules
 
@@ -140,6 +140,7 @@ No modules.
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
+| internet\_fallback\_enabled | Whether to enable internet fallback for the Private DNS Zone. | `bool` | `false` | no |
 | is\_not\_private\_link\_service | Boolean to determine if this module is used for Private Link Service or not. | `bool` | `true` | no |
 | name | Private DNS Zone name. | `string` | n/a | yes |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |

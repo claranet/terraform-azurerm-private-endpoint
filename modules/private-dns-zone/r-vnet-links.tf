@@ -10,6 +10,9 @@ resource "azurerm_private_dns_zone_virtual_network_link" "main" {
 
   registration_enabled = var.vm_autoregistration_enabled
 
+  # NxDomainRedirect enables internet fallback for the Private DNS Zone
+  resolution_policy = var.internet_fallback_enabled ? "NxDomainRedirect" : "Default"
+
   tags = local.curtailed_tags
 
   lifecycle {
