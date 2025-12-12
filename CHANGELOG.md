@@ -1,3 +1,28 @@
+## 8.1.0 (2025-12-12)
+
+### Features
+
+* **AZ-1623:** 🚀 Add internet fallback support for Private DNS Zones 98c09ee
+
+### Documentation
+
+* **AZ-1623:** 📚 Add `internet_fallback_enabled` option to README 5c65f25
+* **AZ-1623:** 📚 Update `azurerm` provider version to `~> 4.36` c9119a7
+
+### Miscellaneous Chores
+
+* **AZ-1623:** 🔧 Update `azurerm` provider version to `~> 4.36` fcd1c29
+* **deps:** update dependency opentofu to v1.10.7 d59a8e0
+* **deps:** update dependency opentofu to v1.11.1 d47f391
+* **deps:** update dependency pre-commit to v4.4.0 01c3350
+* **deps:** update dependency pre-commit to v4.5.0 47982cb
+* **deps:** update dependency tflint to v0.60.0 184fc7d
+* **deps:** update dependency trivy to v0.67.1 5ec2110
+* **deps:** update dependency trivy to v0.67.2 11000c8
+* **deps:** update dependency trivy to v0.68.1 ac0f6b2
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.8 fbb51e8
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 e470e45
+
 ## 8.0.2 (2025-10-01)
 
 ### Code Refactoring
