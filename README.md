@@ -287,6 +287,7 @@ module "example_alias_private_endpoint" {
 | id | Private Endpoint ID. |
 | ip\_address | IP address associated with the Private Endpoint. |
 | module\_private\_dns\_zone | Azure Private DNS Zone module outputs. |
+| name | Private Endpoint name. |
 | private\_dns\_zones\_ids | Maps of Private DNS Zones IDs created as part of this module. Only available if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service. |
 | private\_dns\_zones\_record\_sets | Maps of Private DNS Zones record sets created as part of this module. Only available if `use_existing_private_dns_zones` is set to `false` and `target_resource` is not a Private Link Service. |
 | resource | Azure Private Endpoint resource object. |
