@@ -1,3 +1,16 @@
+## 8.1.2 (2026-03-06)
+
+### Code Refactoring
+
+* **structure:** ♻️ split variables and outputs into categorized files b3a3fe4
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump tflint rules version b9a38a8
+* **deps:** update dependency trivy to v0.69.2 21ab778
+* **deps:** update dependency trivy to v0.69.3 8fc96d0
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.11 0a56a52
+
 ## 8.1.1 (2026-02-13)
 
 ### Code Refactoring
