@@ -1,3 +1,14 @@
+## 8.1.3 (2026-03-27)
+
+### Bug Fixes
+
+* **AZ-1644:** 🐛 Only set `resolution_policy` for privatelink DNS zones 0a44fce
+* **trivy:** 🐛 drop unsafe trivy pre-commit 🔒️ fed1e2d
+
+### Code Refactoring
+
+* update module structure and Github actions 👷 81167b6
+
 ## 8.1.2 (2026-03-06)
 
 ### Code Refactoring
