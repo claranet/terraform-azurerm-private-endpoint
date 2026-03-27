@@ -11,7 +11,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "main" {
   registration_enabled = var.vm_autoregistration_enabled
 
   # NxDomainRedirect enables internet fallback for the Private DNS Zone
-  resolution_policy = var.internet_fallback_enabled ? "NxDomainRedirect" : "Default"
+  resolution_policy = length(regexall("(.*\\.)?(privatelink)\\.*", azurerm_private_dns_zone.main.name)) > 0 ? (var.internet_fallback_enabled ? "NxDomainRedirect" : "Default") : null
 
   tags = local.curtailed_tags
 
