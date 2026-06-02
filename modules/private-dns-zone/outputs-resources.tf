@@ -11,11 +11,13 @@ output "name" {
 output "resource" {
   description = "Private DNS Zone resource object."
   value       = azurerm_private_dns_zone.main
+  sensitive   = true
 }
 
 output "resource_virtual_network_links" {
   description = "Private DNS Zone VNet link resource object."
   value       = azurerm_private_dns_zone_virtual_network_link.main
+  sensitive   = true
 }
 
 output "vnet_links_ids" {

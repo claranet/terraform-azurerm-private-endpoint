@@ -11,6 +11,7 @@ output "name" {
 output "resource" {
   description = "Azure Private Endpoint resource object."
   value       = azurerm_private_endpoint.main
+  sensitive   = true
 }
 
 output "ip_address" {
