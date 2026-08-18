@@ -121,7 +121,7 @@ module "kv_private_endpoint" {
 
 | Name | Version |
 | ---- | ------- |
-| azurerm | ~> 4.36 |
+| azurerm | ~> 5.0 |
 
 ## Modules
 
