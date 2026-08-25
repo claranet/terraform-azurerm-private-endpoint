@@ -3,10 +3,9 @@ resource "azurerm_private_dns_zone_virtual_network_link" "main" {
 
   name = format("%s-link", reverse(split("/", var.virtual_network_ids[count.index]))[0])
 
-  resource_group_name = var.resource_group_name
-
-  private_dns_zone_name = azurerm_private_dns_zone.main.name
-  virtual_network_id    = var.virtual_network_ids[count.index]
+  # AzureRM 5.0 replaced `private_dns_zone_name` + `resource_group_name` with `private_dns_zone_id`.
+  private_dns_zone_id = azurerm_private_dns_zone.main.id
+  virtual_network_id  = var.virtual_network_ids[count.index]
 
   registration_enabled = var.vm_autoregistration_enabled
 
